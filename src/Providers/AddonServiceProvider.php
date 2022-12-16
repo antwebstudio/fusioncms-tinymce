@@ -26,5 +26,13 @@ class AddonServiceProvider extends ServiceProvider
         //
         \Fusion::asset('/addons/TinyMceFieldtype/js/app.js');
         fieldtypes()->register(\Addons\TinyMceFieldtype\Fieldtypes\TinyMceFieldtype::class);
+
+        if (!File::exists(public_path("addons/{$addonName}"))) {
+            // Create symlink
+            File::link(
+                base_path("addons/{$addonName}/public"),
+                public_path("addons/{$addonName}")
+            );
+        }
     }
 }

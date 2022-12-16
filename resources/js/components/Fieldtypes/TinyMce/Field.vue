@@ -220,7 +220,7 @@
 							//.replace(/<div(.*?)>(.*?)<\/div>/gi, '<p$1>$2</p>')
 							.replace(/<div(.*?)>(.*?)<\/div>/gi, '$2') 
 							//.replace(/(.*?)<br\s?\/?>/gi, '<p>$1</p>')
-							.replace(/(.*?)<br\s?\/?>/gi, '<p>$1</p>')
+							// .replace(/(.*?)<br\s?\/?>/gi, '<p>$1</p>') // This will break table html if there is any <br/> inside the table cell.
 					},
 					file_picker_types: 'file image media',
 					media_dimensions: false,
