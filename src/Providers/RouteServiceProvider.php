@@ -37,6 +37,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
     }
 
+    protected function routePath($path) {
+        $basePath = dirname(dirname(dirname(__FILE__)));
+        return $basePath.'/'.$path;
+    }
+
     /**
      * Define the "web" routes for the addon.
      *
@@ -50,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
             'middleware' => 'web',
             'namespace'  => $this->namespace . '\Web',
         ], function ($router) {
-            require addon_path('TinyMceFieldtype/routes/web.php');
+            require $this->routePath('routes/web.php');
         });
     }
 
@@ -68,7 +73,7 @@ class RouteServiceProvider extends ServiceProvider
             'namespace'  => $this->namespace . '\API',
             'prefix'     => 'api',
         ], function ($router) {
-            require addon_path('TinyMceFieldtype/routes/api.php');
+            require $this->routePath('routes/api.php');
         });
     }
 }

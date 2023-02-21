@@ -2,6 +2,7 @@
 
 namespace Addons\TinyMceFieldtype\Providers;
 
+use File;
 use Illuminate\Support\ServiceProvider;
 
 class AddonServiceProvider extends ServiceProvider
@@ -27,12 +28,19 @@ class AddonServiceProvider extends ServiceProvider
         \Fusion::asset('/addons/TinyMceFieldtype/js/app.js');
         fieldtypes()->register(\Addons\TinyMceFieldtype\Fieldtypes\TinyMceFieldtype::class);
 
+        $addonName = 'TinyMceFieldtype';
+        $basePath = dirname(dirname(dirname(__FILE__)));
+
+        if (!File::isDirectory(public_path("addons"))) {
+            File::makeDirectory(public_path("addons"));
+        }
         if (!File::exists(public_path("addons/{$addonName}"))) {
             // Create symlink
             File::link(
-                base_path("addons/{$addonName}/public"),
+                "{$basePath}/public",
                 public_path("addons/{$addonName}")
             );
         }
+        //
     }
 }
